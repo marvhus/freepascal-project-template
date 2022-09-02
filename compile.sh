@@ -20,25 +20,8 @@ if [[ $1 ]]; then
     exit
 fi
 
-# Compile to linux
-if [[ "$OSTYPE" = "linux-gnu"* ]]; then # Linux
-    fpc -Tlinux src/main.pas
-    mkdir -p bin/linux; mv src/main bin/linux/
-# Compile to freebsd
-elif [[ "$OSTYPE" = "freebsd" ]]; then # FreeBSD
-    fpc -Tfreebsd src/main.pas
-    mkdir -p bin/freebsd; mv src/main bin/freebsd/
-# Compile to win32
-elif [[ "$OSTYPE" = "win64" ]]; then # Windows 32 bit
-    fpc -Twin64 src/main.pas
-    mkdir -p bin/win64; mv src/main bin/win64/
-elif [[ "$OSTYPE" = "darwin" ]]; then # Mac OSX
-    fpc -Tdarwin src/main.pas
-    mkdir -p bin/darwin; mv src/-main bin/darwin/
-else # Anything else
-        echo "Platform not suported at the moment"
-        exit
-fi
+fpc src/main.pas
+mkdir -p bin/; mv src/main bin/main
 
 rm -rf src/*.o
 rm -rf src/*.ppu
